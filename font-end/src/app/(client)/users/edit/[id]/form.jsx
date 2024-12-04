@@ -50,7 +50,8 @@ export default function Form({ user, id }) {
           placeholder="Password"
         />
       </div>
-      <button className="btn btn-primary">Update</button>
+      <div> <input type="file"  /></div>
+      <button className="btn btn-primary" style={{marginTop:"20px"}}>Update</button>
       {msg && <span className="text-danger">{msg}</span>}
     </form>
   );

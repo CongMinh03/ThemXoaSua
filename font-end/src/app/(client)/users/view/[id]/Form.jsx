@@ -1,22 +1,22 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { handleCreateUser } from "../action";
+import { handleUpdateUser } from "../../action";
 
-export default function Form() {
+export default function Form({ user, id }) {
   const [msg, setMsg] = useState("");
   const formRef = useRef();
   return (
     <form
       ref={formRef}
       action={async (formData) => {
-        const response = await handleCreateUser(formData);
+        formData.append("id", id);
+        const response = await handleUpdateUser(formData);
         if (!response) {
           setMsg("Đã có lỗi xảy ra. Vui lòng thử lại sau");
           return;
         }
-        setMsg("Added user successfully");
-        formRef.current.reset();
+        setMsg("Cập nhật người dùng thành công");
       }}
     >
       <div className="mb-3">
@@ -26,7 +26,9 @@ export default function Form() {
           name="name"
           className="form-control"
           placeholder="Fullname"
-          required
+          defaultValue={user.name}
+          disabled
+        
         />
       </div>
       <div className="mb-3">
@@ -36,25 +38,12 @@ export default function Form() {
           name="email"
           className="form-control"
           placeholder="Email"
-          required
+          defaultValue={user.email}
+          disabled
         />
       </div>
-      <div className="mb-3">
-        <label htmlFor="">Password</label>
-        <input
-          type="password"
-          name="password"
-          className="form-control"
-          placeholder="Password"
-          required
-        />
-      </div>
-     <div>
-      <input type="file"  />
-     </div>
      
-      <button className="btn btn-primary" style={ {marginTop: "20px"}}>Create</button>
-      {msg && <span className="text-danger">{msg}</span>}
+     
     </form>
   );
 }

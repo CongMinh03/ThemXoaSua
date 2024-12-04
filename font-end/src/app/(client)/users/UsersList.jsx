@@ -40,10 +40,11 @@ export default function UserList({ users }) {
         <thead>
           <tr>
             <th width="5%">STT</th>
-            <th>Name</th>
+            <th>Tên</th>
             <th>Email</th>
-            <th width="5%">Update</th>
-            <th width="5%">Delete</th>
+            <th width="5%">Sửa</th>
+            <th width="5%">Xóa</th>
+            <th width="5%">View</th>
           </tr>
         </thead>
         <tbody>
@@ -57,7 +58,7 @@ export default function UserList({ users }) {
                   href={`/users/edit/${user.id}`}
                   className="btn btn-warning btn-sm"
                 >
-                  Update
+                  Sửa
                 </Link>
               </td>
               <td>
@@ -65,8 +66,13 @@ export default function UserList({ users }) {
                   className="btn btn-danger btn-sm"
                   onClick={() => handleRemoveUser(user.id)}
                 >
-                  Delete
+                  Xóa
                 </button>
+              </td>
+              <td>
+                <Link    href={`/users/view/${user.id}`}
+                  className="btn btn-primary btn-sm"
+                > View</Link>
               </td>
             </tr>
           ))}
