@@ -13,8 +13,9 @@ class UserController extends Controller
      */
     public function index()
     {
+
         $q=request()->query('q');
-        $limit = request()->query('limit', 10);
+        $limit = request()->query('limit', 5);
         $users = User::latest();
         if($q){
             $users->where(function($query)use($q)
@@ -112,6 +113,10 @@ class UserController extends Controller
         if($request->password){
             $user->password = $request->password;
         }
+        if($request->image){
+            $user->image = $request->image;
+        }
+
 
         $user->save();
 
