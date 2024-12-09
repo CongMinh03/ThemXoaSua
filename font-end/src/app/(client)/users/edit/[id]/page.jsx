@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Form from "./form";
-
+import Link from "next/link";
 export const metadata = {
   title: "Update User | Page",
 };
@@ -17,7 +17,9 @@ export default async function EditUserPage({ params }) {
   }
   return (
     <div>
-      <h1>Update User</h1>
+          <h1 style={{ textAlign: 'center' }}>Update User</h1>
+
+   
       <Form user={user} id={id} />
     </div>
   );

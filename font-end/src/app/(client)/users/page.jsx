@@ -4,34 +4,28 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import UserList from "./UsersList";
 
-const USERS_PER_PAGE = 4; // Số lượng người dùng trên mỗi trang
 
 const getUsers = async (pageNumber) => {
-  const response = await fetch(`${process.env.SERVER_API}/users?page=${pageNumber}&limit=${USERS_PER_PAGE}`);
+  const response = await fetch(`${process.env.SERVER_API}/users?page=${pageNumber}`);
   return response.json();
 };
 
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
-  const [page, setPage] = useState(1); // Khởi tạo trang đầu tiên
-  const [hasMoreData, setHasMoreData] = useState(true); // Trạng thái kiểm tra có dữ liệu thêm hay không
+  const [page, setPage] = useState(1); // Initialize the page to 1
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [nextPageUrl, setNextPageUrl] = useState(null); // State for next page URL
 
   useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true);
       try {
-        const { success, data } = await getUsers(page);
+        const { success, data} = await getUsers(page);
         if (success) {
           setUsers(data);
-
-          // Kiểm tra số lượng người dùng ít hơn số lượng tối đa mỗi trang
-          if (data.length < USERS_PER_PAGE) {
-            setHasMoreData(false); // Không có dữ liệu cho trang tiếp theo
-          } else {
-            setHasMoreData(true); // Vẫn có dữ liệu cho trang tiếp theo
-          }
+          console.log(data.next_page_url);
+          setNextPageUrl(data.next_page_url);
         } else {
           setError("Không thể tải được người dùng");
         }
@@ -42,7 +36,7 @@ export default function UsersPage() {
     };
 
     fetchUsers();
-  }, [page]); // Chạy lại khi trang thay đổi
+  }, [page]); // This effect runs every time the page number changes
 
   if (loading) return <h2>Đang tải...</h2>;
   if (error) return <h2>{error}</h2>;
@@ -54,23 +48,21 @@ export default function UsersPage() {
         Thêm mới
       </Link>
       <UserList users={users} />
-      <div className="pagination">
-        {/* Nút Trước */}
+      <div className="pagination flex justify-center">
         <button
-          onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 1))}
-          disabled={page === 1} // Vô hiệu hóa khi ở trang đầu tiên
-          className="btn btn-secondary me-2"
+          className="btn btn-secondary btn-sm"
+          onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))}
+          disabled={page === 1}
         >
-          Trước
+          Quay Lại
         </button>
-        {/* Nút Tiếp theo */}
         <span className="page-counter">Trang {page}</span>
-        <button
-          onClick={() => setPage((prevPage) => prevPage + 1)}
-          disabled={!hasMoreData} // Vô hiệu hóa khi không còn dữ liệu
-          className="btn btn-secondary"
+        <button 
+          className="btn btn-secondary btn-sm"
+          onClick={() => setPage(prevPage => prevPage + 1)}
+          disabled={!nextPageUrl}
         >
-          Tiếp theo
+          Tiếp Theo
         </button>
       </div>
     </div>

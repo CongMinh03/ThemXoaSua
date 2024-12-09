@@ -46,15 +46,23 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $user = new User;
-        $user->fill($request->all());
+        $user->fill($request->except('password', 'image'));
         $user->password = bcrypt($request->password);
+        $imagePath = $request->file('image')->store('users', 'public');
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imagePath = $image->store( );
+            $user->image = $imagePath;
+        }
+
         $user->save();
+
         return response()->json([
             'success' => true,
             'data' => $user,
             'message' => 'User created successfully'
-        ], 201);
-    }
+        ], 201);}
 
     /**
      * Display the specified resource.
@@ -113,8 +121,11 @@ class UserController extends Controller
         if($request->password){
             $user->password = $request->password;
         }
-        if($request->image){
-            $user->image = $request->image;
+        if ($request->hasFile('image')) {// Save the file to the 'images' directory in the 'public' disk
+            $path = $request->file('image')->store('users', 'public');
+    
+            // Update the user's image field with the file path
+            $user->image = $path;
         }
 
 

@@ -28,5 +28,15 @@
 .avatar-image {
     object-fit: cover;  /* Đảm bảo ảnh không bị méo */
 }
+.avatar {
+  img {
+    border-radius: 50%;
+    width: 100px; /* Kích thước hình ảnh */
+    height: 100px; /* Kích thước hình ảnh */
+    object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
   
- 
+    
+  
+  }
+  
+}

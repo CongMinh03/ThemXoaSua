@@ -28,6 +28,7 @@ class UserRequest extends FormRequest
             $name = $this->name;
             $email = $this->email;
             $password = $this->password;
+            $image = $this->image;
             $rules = [];
             if($name){
                 $rules['name'] = 'required|min:4';
@@ -37,15 +38,21 @@ class UserRequest extends FormRequest
             }
             if($password){
                 $rules['password'] = 'required|min:6';
+
+            }
+            if($image){
+                $image['image'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
             }
             return $rules;
+        
         }
-
         return [
             'name' => 'required|min:4',
             'email' => $emailRule,
             'password' => 'required|min:6',
+            'image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2800',
         ];
+     
     }
 
     public function messages(){
@@ -54,6 +61,7 @@ class UserRequest extends FormRequest
             'min' => ':attribute phải từ :min ký tự',
             'email' => ':attribute phải định dạng email',
             'unique' => ':attribute đã tồn tại',
+            'image' => ':attribute phải là hình ảnh',
         ];
     }
 
@@ -62,6 +70,7 @@ class UserRequest extends FormRequest
             'name' => 'Tên',
             'email' => 'Email',
             'password' => 'Mật khẩu',
+            'image' => 'Hình ảnh',
         ];
     }
 }

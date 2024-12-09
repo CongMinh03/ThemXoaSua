@@ -28,7 +28,7 @@ export default function Form({ user, id }) {
           placeholder="Fullname"
           defaultValue={user.name}
           disabled
-        
+
         />
       </div>
       <div className="mb-3">
@@ -42,8 +42,17 @@ export default function Form({ user, id }) {
           disabled
         />
       </div>
-     
-     
+      <div className="avatar">
+        <label style={{marginTop: "5px"  }} >Image</label>
+
+        <div className="avatar">
+          <div className="w-24 rounded-xl">
+            <img src={`http://localhost/ksksksksksk/BA1/storage/app/public/users/${user.image}`} />
+          </div>
+        </div>
+      </div>
+
+
     </form>
   );
 }

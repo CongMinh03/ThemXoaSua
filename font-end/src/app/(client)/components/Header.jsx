@@ -1,37 +1,43 @@
 import { getSession } from "@/utils/session";
-import Link from "next/link";
-
 
 export default async function Header() {
-  const user = await getSession();
+  const user = await getSession(); // Lấy thông tin người dùng từ session
 
   return (
     <header>
-      <h1>  </h1>
       <ul className="d-flex gap-1 list-unstyled">
         {user ? (
-
-          <><li> <div className="avatar-container">
-            <img
-              src="https://i.imgur.com/axHjy6e.jpeg"
-              width={80} // Kích thước tùy chỉnh
-              height={60}
-              className="avatar-image"
-
-            />
-          </div></li>
-          <div style={{ fontSize: "45px", marginTop: "20px" }}>Xin chào: {user.name} </div>
-  
-            <div style={{ fontSize: "20px", marginTop: "45px" }} > <a href="/auth/logout">Đăng xuất</a></div>
-
-          </>
-        ) : 
           <>
+            <li>
+              <div className="avatar-container">
+                <img
+                  src={`http://localhost/ksksksksksk/BA1/storage/app/public/users/${user.image}`} // Dùng URL đầy đủ từ backend
+                  width={60}
+                  height={40}
+                  className="avatar-image"
+                
+                />
 
+              </div>
+            </li>
+            <li style={{ fontSize: "25px", marginTop: "30px" }}>
+              Xin chào: {user.name}
+              <a
+                href="/auth/logout"
+                style={{
+                  fontSize: "15px",
+                  marginTop: "30px",
+                  marginLeft: "10px",
+                }}
+              >
+                Đăng xuất
+              </a>
+            </li>
           </>
-        }
+        ) : (
+          <></>
+        )}
       </ul>
-
     </header>
   );
 }

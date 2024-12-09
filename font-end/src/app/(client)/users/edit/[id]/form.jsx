@@ -3,7 +3,10 @@
 import { useRef, useState } from "react";
 import { handleUpdateUser } from "../../action";
 
+import { useRouter } from "next/navigation";
+
 export default function Form({ user, id }) {
+  const router = useRouter(); 
   const [msg, setMsg] = useState("");
   const formRef = useRef();
   return (
@@ -17,6 +20,7 @@ export default function Form({ user, id }) {
           return;
         }
         setMsg("Cập nhật người dùng thành công");
+        router.push('/users');
       }}
     >
       <div className="mb-3">
@@ -27,7 +31,7 @@ export default function Form({ user, id }) {
           className="form-control"
           placeholder="Fullname"
           defaultValue={user.name}
-          required
+          required  
         />
       </div>
       <div className="mb-3">
@@ -50,7 +54,13 @@ export default function Form({ user, id }) {
           placeholder="Password"
         />
       </div>
-      <div> <input type="file"  /></div>
+      <div> <input
+          type="file"
+          name="image"
+          className="form-control"
+          placeholder="Hình ảnh"
+    
+        /></div>
       <button className="btn btn-primary" style={{marginTop:"20px"}}>Update</button>
       {msg && <span className="text-danger">{msg}</span>}
     </form>

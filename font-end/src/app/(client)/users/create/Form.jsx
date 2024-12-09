@@ -49,11 +49,17 @@ export default function Form() {
           required
         />
       </div>
-     <div>
-      <input type="file"  />
-     </div>
-     
-      <button className="btn btn-primary" style={ {marginTop: "20px"}}>Create</button>
+      <div>
+      <input
+          type="file"
+          name="image"
+          className="form-control"
+          placeholder="Hình ảnh"
+          required
+        />
+      </div>
+
+      <button className="btn btn-primary" style={{ marginTop: "20px" }}>Create</button>
       {msg && <span className="text-danger">{msg}</span>}
     </form>
   );

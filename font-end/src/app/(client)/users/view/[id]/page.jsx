@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Form from "./Form";
-
+import Link from "next/link";
 export const metadata = {
   title: "View User | Page",
 };
@@ -17,7 +17,9 @@ export default async function ViewUserPage({ params }) {
   }
   return (
     <div>
-      <h1>View User</h1>
+      
+      <h1 style={{ textAlign: 'center' }}>View User</h1>
+      
       <Form user={user} id={id} />
     </div>
   );

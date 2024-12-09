@@ -44,7 +44,7 @@ export default function UserList({ users }) {
             <th>Email</th>
             <th width="5%">Sửa</th>
             <th width="5%">Xóa</th>
-            <th width="5%">View</th>
+            <th width="5%">Xem</th>
           </tr>
         </thead>
         <tbody>
@@ -71,8 +71,8 @@ export default function UserList({ users }) {
               </td>
               <td>
                 <Link    href={`/users/view/${user.id}`}
-                  className="btn btn-primary btn-sm"
-                > View</Link>
+                  className="btn btn-info btn-sm"
+                > Xem</Link>
               </td>
             </tr>
           ))}
